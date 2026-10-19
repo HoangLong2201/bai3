@@ -1,0 +1,125 @@
+/* ======================================================
+   1. CHẾ ĐỘ XEM DI ĐỘNG (MOBILE-FIRST) - Mặc định
+   Không sử dụng Media Query cho giao diện Mobile
+   ====================================================== */
+
+/* Thiết lập mượt mà mặc định cho toàn trang */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 15px;
+    background-color: #ffffff;
+    color: #222222;
+}
+
+/* Yêu cầu 5.1: Bố cục Grid 1 cột, gap 10px giữa các hàng và cột */
+.container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+}
+
+figure {
+    margin: 0;
+    padding: 15px;
+    background-color: #f4f4f4;
+    border: 2px solid #ccc;
+    text-align: center;
+}
+
+figure img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+figcaption {
+    margin-top: 10px;
+    font-size: 1rem;
+    color: #333333;
+}
+
+
+/* ======================================================
+   2. CHẾ ĐỘ XEM MÁY TÍNH BẢNG (TABLET) - Kích hoạt ở 772px
+   Không viết lại display: grid (đã kế thừa từ mobile)
+   ====================================================== */
+@media (min-width: 772px) {
+    /* Yêu cầu 6.1: Lưới 2 cột */
+    .container {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    /* Yêu cầu 6.2: Bo tròn các hình (figure) */
+    figure {
+        border-radius: 15px;
+    }
+
+    /* Yêu cầu 6.3: Hình cuối cùng (figure) chiếm cả 2 cột */
+    figure:last-child {
+        grid-column: span 2;
+    }
+}
+
+
+/* ======================================================
+   3. CHẾ ĐỘ XEM MÀN HÌNH LỚN (DESKTOP) - Kích hoạt ở 992px
+   Không viết lại display: grid, không dùng max-width
+   ====================================================== */
+@media (min-width: 992px) {
+    /* Khôi phục lại độ bo tròn về 0 cho tất cả figure (Yêu cầu 7.2) */
+    figure {
+        border-radius: 0;
+    }
+
+    /* Đặt mỗi figure thứ 3 (3, 6, 9...) chiếm cả 2 cột (Yêu cầu 7.1) */
+    figure:nth-child(3n) {
+        grid-column: span 2;
+    }
+
+    /* Khôi phục hình cuối cùng nếu không phải bội số của 3 */
+    figure:last-child {
+        grid-column: auto;
+    }
+}
+
+
+/* ======================================================
+   4. TÙY CHỌN GIẢM CHUYỂN ĐỘNG (PREFERS-REDUCED-MOTION)
+   ====================================================== */
+@media (prefers-reduced-motion: reduce) {
+    /* Yêu cầu 8.1: Xóa hành vi cuộn mượt */
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+
+/* ======================================================
+   5. TÙY CHỌN BẢNG MÀU TỐI (PREFERS-COLOR-SCHEME: DARK)
+   ====================================================== */
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #121212;
+        color: #ffffff;
+    }
+
+    /* Yêu cầu 9.1: Màu nền figure thành màu tối
+       Yêu cầu 9.2: Màu chữ nhạt hơn/vàng (#ffe082 giúp đạt điểm WAVE tương phản cao)
+       Yêu cầu 9.3: Viền màu đen (#000000) */
+    figure {
+        background-color: #1e1e1e;
+        color: #ffe082; 
+        border-color: #000000;
+    }
+
+    figcaption {
+        color: #ffe082;
+    }
+}
+
+
